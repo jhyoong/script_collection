@@ -1,0 +1,57 @@
+upstream:
+  default:
+    - 1.1.1.1    # Cloudflare
+    - 1.0.0.1    # Cloudflare backup
+    - 8.8.8.8    # Google
+
+blocking:
+  blackLists:
+    ads:
+      - https://someonewhocares.org/hosts/zero/hosts
+      - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+      - https://raw.githubusercontent.com/AdguardTeam/AdguardFilters/master/BaseFilter/sections/adservers.txt
+    malware:
+      - https://urlhaus.abuse.ch/downloads/hostfile/
+    tracking:
+      - https://hostfiles.frogeye.fr/firstparty-trackers-hosts.txt
+
+  clientGroupsBlock:
+    default:
+      - ads
+      - malware
+      - tracking
+
+  # Refresh blocklists every 4 hours
+  refreshPeriod: 4h
+
+customDNS:
+  customTTL: 1h
+  mapping:
+    traefik.local: 192.168.50.201
+    app1.local: 192.168.50.201
+    app2.local: 192.168.50.201
+    blocky.local: 192.168.50.201
+
+ports:
+  dns: 53
+  http: 4000
+
+# Optimized caching for Pi 3B
+caching:
+  minTime: 5m
+  maxTime: 30m
+  maxItemsCount: 1000
+  prefetching: true
+
+# Logging
+log:
+  level: info
+  timestamp: true
+
+# Enable query logging for monitoring
+queryLog:
+  type: console
+  logRetentionDays: 1
+
+# Performance tuning for Pi 3B
+minTlsServeVersion: 1.2
