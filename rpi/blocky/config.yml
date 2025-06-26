@@ -27,10 +27,15 @@ blocking:
 customDNS:
   customTTL: 1h
   mapping:
+    llm.ai.home: 192.168.50.201
+    minijh.home: 191.168.50.210
+    macminijh.home: 192.168.50.212
+    winzealjh.home: 192.168.50.139
     traefik.local: 192.168.50.201
     app1.local: 192.168.50.201
     app2.local: 192.168.50.201
     blocky.local: 192.168.50.201
+    dashboard.ai.home: 192.168.50.201
 
 ports:
   dns: 53
@@ -52,6 +57,3 @@ log:
 queryLog:
   type: console
   logRetentionDays: 1
-
-# Performance tuning for Pi 3B
-minTlsServeVersion: 1.2

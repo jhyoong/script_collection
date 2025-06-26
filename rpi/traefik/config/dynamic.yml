@@ -4,7 +4,7 @@ http:
     dashboard-auth:
       basicAuth:
         users:
-          - "{someusername}:{somepassword}" # Use htpasswd -nB user to create
+          - "admin:$2y$05$b3rrbNKNw0QI1pRQIVr7kumAJsmKLxvjbRKyK/RNrRpQpsejgTs1G"
     ip-whitelist:
       ipWhiteList:
         sourceRange:
@@ -27,8 +27,18 @@ http:
       rule: "Host(`llm.ai.home`)"
       service: llm-service
 
+    # Dashboard service
+    llm-dashboard:
+      rule: "Host(`dashboard.ai.home`)"
+      service: llm-dashboard
+
   services:
     llm-service:
       loadBalancer:
         servers:
           - url: "http://192.168.50.210:3000"
+
+    llm-dashboard:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.50.210:3030"
